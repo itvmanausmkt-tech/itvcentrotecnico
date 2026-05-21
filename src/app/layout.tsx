@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Sora } from 'next/font/google';
 import './globals.css';
 import { site } from '@/lib/site';
+import { GoogleAdsTracker } from '@/components/GoogleAdsTracker';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -68,7 +69,10 @@ export default function RootLayout({
           fetchPriority="high"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <GoogleAdsTracker />
+      </body>
     </html>
   );
 }
