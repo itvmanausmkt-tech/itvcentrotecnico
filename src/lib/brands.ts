@@ -1,4 +1,8 @@
-export type Defeito = { titulo: string; desc: string };
+export type Defeito = { titulo: string; desc: string; icone: IconeNome };
+
+export type IconeNome =
+  | 'MonitorOff' | 'PowerOff' | 'RefreshCw' | 'AlertTriangle' | 'Sparkles'
+  | 'Cable' | 'Settings' | 'VolumeX' | 'Lightbulb' | 'Cpu' | 'Plug';
 export type Brand = {
   slug: string;
   marca: string;
@@ -9,6 +13,11 @@ export type Brand = {
   metaDescription: string;
   keywords: string[];
   linhas: string[];
+  fotoSecao: 'loja-showroom' | 'loja-balcao' | 'loja-fachada';
+  fotoLarguras: number[];
+  fotoAlt: string;
+  tituloSecaoFoto: string;
+  textoSecaoFoto: string;
   defeitos: Defeito[];
   faq: { q: string; a: string }[];
 };
@@ -16,6 +25,11 @@ export type Brand = {
 export const brands: Brand[] = [
   {
     slug: 'conserto-tv-samsung',
+    fotoSecao: 'loja-showroom',
+    fotoLarguras: [640, 1024],
+    fotoAlt: 'Showroom da iTV Centro Técnico em Manaus',
+    tituloSecaoFoto: 'Sua Samsung em mãos especializadas',
+    textoSecaoFoto: 'Cada TV que entra aqui passa por diagnóstico completo antes de qualquer orçamento. Você aprova o que vai ser feito — e só depois a gente executa.',
     marca: 'Samsung',
     h1: 'Conserto de TV Samsung em Manaus',
     eyebrow: 'Assistência técnica Samsung',
@@ -31,12 +45,12 @@ export const brands: Brand[] = [
     ],
     linhas: ['Crystal UHD', 'QLED', 'Neo QLED', 'The Frame', 'OLED', 'Series 4 a 9'],
     defeitos: [
-      { titulo: 'Tela preta com som normal', desc: 'Na Samsung costuma ser barra de LED queimada ou falha na placa T-CON. O áudio continua funcionando porque só a imagem é afetada.' },
-      { titulo: 'Listras verticais ou horizontais', desc: 'Linhas coloridas fixas na tela indicam problema no cabo flat ou no próprio painel. Avaliamos se compensa a troca de display.' },
-      { titulo: 'TV não liga, LED piscando', desc: 'Piscar em sequência é código de erro da fonte. Normalmente capacitores estufados — reparo relativamente simples e barato.' },
-      { titulo: 'Travada no logo Samsung', desc: 'Firmware corrompido após atualização interrompida. Reinstalamos o software oficial sem perder as configurações.' },
-      { titulo: 'Manchas ou áreas escuras', desc: 'Comum em Crystal UHD e QLED. Costuma ser difusor deslocado ou LED com queda de intensidade em parte do painel.' },
-      { titulo: 'One Connect sem sinal', desc: 'Nas linhas premium, a caixa One Connect pode falhar sozinha. Testamos o módulo antes de mexer na TV.' },
+      { titulo: 'Tela preta com som normal', desc: 'Na Samsung costuma ser barra de LED queimada ou falha na placa T-CON. O áudio continua funcionando porque só a imagem é afetada.' , icone: 'MonitorOff' },
+      { titulo: 'Listras verticais ou horizontais', desc: 'Linhas coloridas fixas na tela indicam problema no cabo flat ou no próprio painel. Avaliamos se compensa a troca de display.' , icone: 'AlertTriangle' },
+      { titulo: 'TV não liga, LED piscando', desc: 'Piscar em sequência é código de erro da fonte. Normalmente capacitores estufados — reparo relativamente simples e barato.' , icone: 'PowerOff' },
+      { titulo: 'Travada no logo Samsung', desc: 'Firmware corrompido após atualização interrompida. Reinstalamos o software oficial sem perder as configurações.' , icone: 'RefreshCw' },
+      { titulo: 'Manchas ou áreas escuras', desc: 'Comum em Crystal UHD e QLED. Costuma ser difusor deslocado ou LED com queda de intensidade em parte do painel.' , icone: 'Sparkles' },
+      { titulo: 'One Connect sem sinal', desc: 'Nas linhas premium, a caixa One Connect pode falhar sozinha. Testamos o módulo antes de mexer na TV.' , icone: 'Cable' },
     ],
     faq: [
       { q: 'Vocês trocam display de TV Samsung?', a: 'Sim. Trabalhamos com display para Samsung de 32" a 85". Antes da troca fazemos o diagnóstico completo, porque em boa parte dos casos o defeito é na barra de LED ou na T-CON — bem mais barato que o painel.' },
@@ -46,6 +60,11 @@ export const brands: Brand[] = [
   },
   {
     slug: 'conserto-tv-lg',
+    fotoSecao: 'loja-balcao',
+    fotoLarguras: [640, 1024],
+    fotoAlt: 'Balcão de atendimento da iTV Centro Técnico',
+    tituloSecaoFoto: 'Atendimento que explica o que sua LG tem',
+    textoSecaoFoto: 'Nada de termo técnico solto. Explicamos o defeito, o que precisa ser trocado e quanto custa — em português claro, antes de você decidir.',
     marca: 'LG',
     h1: 'Conserto de TV LG em Manaus',
     eyebrow: 'Assistência técnica LG',
@@ -61,12 +80,12 @@ export const brands: Brand[] = [
     ],
     linhas: ['NanoCell', 'OLED', 'QNED', 'UHD 4K', 'Smart TV webOS', 'Série UN / UP / UQ'],
     defeitos: [
-      { titulo: 'Travada no logo LG', desc: 'Um dos defeitos mais comuns da marca. O webOS trava no boot depois de atualização ou queda de energia. Reinstalamos o firmware oficial.' },
-      { titulo: 'Tela preta com som', desc: 'Backlight sem alimentação ou T-CON com falha. Fazemos o teste de lanterna para confirmar antes de qualquer orçamento.' },
-      { titulo: 'Sombra fixa na imagem (OLED)', desc: 'Retenção ou burn-in em painéis OLED. Avaliamos o grau e explicamos com honestidade quando tem e quando não tem solução.' },
-      { titulo: 'Listras ou faixas coloridas', desc: 'Geralmente cabo flat mal contactado ou painel com defeito. O diagnóstico define se é reparo simples ou troca.' },
-      { titulo: 'TV não liga', desc: 'Fonte com capacitores estufados é a causa mais frequente. Reparo rápido e com bom custo-benefício.' },
-      { titulo: 'Wi-Fi não conecta', desc: 'Módulo de rede ou firmware. Muitas vezes resolve com reinstalação de software, sem troca de peça.' },
+      { titulo: 'Travada no logo LG', desc: 'Um dos defeitos mais comuns da marca. O webOS trava no boot depois de atualização ou queda de energia. Reinstalamos o firmware oficial.' , icone: 'RefreshCw' },
+      { titulo: 'Tela preta com som', desc: 'Backlight sem alimentação ou T-CON com falha. Fazemos o teste de lanterna para confirmar antes de qualquer orçamento.' , icone: 'MonitorOff' },
+      { titulo: 'Sombra fixa na imagem (OLED)', desc: 'Retenção ou burn-in em painéis OLED. Avaliamos o grau e explicamos com honestidade quando tem e quando não tem solução.' , icone: 'Sparkles' },
+      { titulo: 'Listras ou faixas coloridas', desc: 'Geralmente cabo flat mal contactado ou painel com defeito. O diagnóstico define se é reparo simples ou troca.' , icone: 'AlertTriangle' },
+      { titulo: 'TV não liga', desc: 'Fonte com capacitores estufados é a causa mais frequente. Reparo rápido e com bom custo-benefício.' , icone: 'PowerOff' },
+      { titulo: 'Wi-Fi não conecta', desc: 'Módulo de rede ou firmware. Muitas vezes resolve com reinstalação de software, sem troca de peça.' , icone: 'Settings' },
     ],
     faq: [
       { q: 'Vocês consertam TV LG OLED?', a: 'Sim, atendemos OLED, NanoCell, QNED e as linhas UHD. Em OLED avaliamos com cuidado casos de burn-in e explicamos com clareza quando o reparo compensa.' },
@@ -76,6 +95,11 @@ export const brands: Brand[] = [
   },
   {
     slug: 'conserto-tv-tcl',
+    fotoSecao: 'loja-showroom',
+    fotoLarguras: [640, 1024],
+    fotoAlt: 'Showroom da iTV Centro Técnico em Manaus',
+    tituloSecaoFoto: 'Estrutura de centro técnico de verdade',
+    textoSecaoFoto: 'Bancada equipada, instrumento de medição e peças testadas. É o que separa um conserto que dura de um que volta em duas semanas.',
     marca: 'TCL e Semp Toshiba',
     h1: 'Conserto de TV TCL e Semp em Manaus',
     eyebrow: 'Assistência técnica TCL · Semp',
@@ -91,12 +115,12 @@ export const brands: Brand[] = [
     ],
     linhas: ['Android TV', 'Google TV', 'Roku TV', 'QLED', 'Semp Toshiba', 'Série P / C / S'],
     defeitos: [
-      { titulo: 'Som normal e imagem apagada', desc: 'O defeito clássico da TCL. Quase sempre são as barras de LED, que nessa linha têm vida útil menor. Trocamos com peça de qualidade.' },
-      { titulo: 'Travada no logo TCL', desc: 'Android TV com sistema corrompido. Reinstalamos o firmware e a TV volta a iniciar normalmente.' },
-      { titulo: 'Android TV lenta ou travando', desc: 'Apps fechando sozinhos e demora para abrir. Fazemos limpeza de sistema e atualização, quando o hardware está íntegro.' },
-      { titulo: 'TV não liga', desc: 'Fonte ou placa principal. Testamos os dois antes de orçar, para você não pagar por peça que não precisa.' },
-      { titulo: 'Controle não responde', desc: 'Receptor infravermelho ou pareamento Bluetooth. Muitas vezes é solução simples, sem custo de peça.' },
-      { titulo: 'Manchas na tela', desc: 'Difusor deslocado ou LED com intensidade irregular. Abrimos, avaliamos e explicamos o que dá para resolver.' },
+      { titulo: 'Som normal e imagem apagada', desc: 'O defeito clássico da TCL. Quase sempre são as barras de LED, que nessa linha têm vida útil menor. Trocamos com peça de qualidade.' , icone: 'VolumeX' },
+      { titulo: 'Travada no logo TCL', desc: 'Android TV com sistema corrompido. Reinstalamos o firmware e a TV volta a iniciar normalmente.' , icone: 'RefreshCw' },
+      { titulo: 'Android TV lenta ou travando', desc: 'Apps fechando sozinhos e demora para abrir. Fazemos limpeza de sistema e atualização, quando o hardware está íntegro.' , icone: 'Settings' },
+      { titulo: 'TV não liga', desc: 'Fonte ou placa principal. Testamos os dois antes de orçar, para você não pagar por peça que não precisa.' , icone: 'PowerOff' },
+      { titulo: 'Controle não responde', desc: 'Receptor infravermelho ou pareamento Bluetooth. Muitas vezes é solução simples, sem custo de peça.' , icone: 'Cable' },
+      { titulo: 'Manchas na tela', desc: 'Difusor deslocado ou LED com intensidade irregular. Abrimos, avaliamos e explicamos o que dá para resolver.' , icone: 'Sparkles' },
     ],
     faq: [
       { q: 'Vocês são autorizada TCL em Manaus?', a: 'Somos um centro técnico independente especializado em TCL e Semp Toshiba. Não somos assistência autorizada da fabricante, mas trabalhamos com peças de qualidade e damos garantia de até 6 meses no serviço.' },
@@ -106,6 +130,11 @@ export const brands: Brand[] = [
   },
   {
     slug: 'conserto-tv-grande',
+    fotoSecao: 'loja-fachada',
+    fotoLarguras: [640, 1024],
+    fotoAlt: 'Fachada da iTV Centro Técnico na Rua Visconde de Utinga',
+    tituloSecaoFoto: 'Espaço preparado para telas grandes',
+    textoSecaoFoto: 'TV de 65, 75 ou 85 polegadas exige espaço, bancada e transporte adequados. Temos os três — e buscamos a sua sem custo.',
     marca: 'TVs Grandes',
     h1: 'Conserto de TV Grande em Manaus — 50" a 85"',
     eyebrow: 'Especialista em telas grandes',
@@ -121,12 +150,12 @@ export const brands: Brand[] = [
     ],
     linhas: ['50 polegadas', '55 polegadas', '65 polegadas', '70 polegadas', '75 polegadas', '85 polegadas'],
     defeitos: [
-      { titulo: 'Barras de LED queimadas', desc: 'Quanto maior a tela, mais barras de LED — e maior a chance de uma falhar. É o defeito mais comum em telas grandes.' },
-      { titulo: 'Display trincado', desc: 'Avaliamos se a troca de painel compensa. Em telas muito grandes nem sempre vale, e falamos isso com honestidade.' },
-      { titulo: 'Manchas ou nuvens na imagem', desc: 'Difusor deslocado pelo peso do próprio painel. Comum em TVs grandes que foram transportadas de forma inadequada.' },
-      { titulo: 'Imagem escura mesmo no máximo', desc: 'Perda de intensidade das barras de LED. A troca devolve o brilho original da TV.' },
-      { titulo: 'Placa T-CON com falha', desc: 'Em telas grandes a T-CON trabalha mais. Falha gera listras, imagem dupla ou tela branca.' },
-      { titulo: 'Fonte não sustenta a TV', desc: 'Telas grandes exigem mais da fonte. Capacitores estufados fazem a TV desligar sozinha depois de alguns minutos.' },
+      { titulo: 'Barras de LED queimadas', desc: 'Quanto maior a tela, mais barras de LED — e maior a chance de uma falhar. É o defeito mais comum em telas grandes.' , icone: 'Lightbulb' },
+      { titulo: 'Display trincado', desc: 'Avaliamos se a troca de painel compensa. Em telas muito grandes nem sempre vale, e falamos isso com honestidade.' , icone: 'AlertTriangle' },
+      { titulo: 'Manchas ou nuvens na imagem', desc: 'Difusor deslocado pelo peso do próprio painel. Comum em TVs grandes que foram transportadas de forma inadequada.' , icone: 'Sparkles' },
+      { titulo: 'Imagem escura mesmo no máximo', desc: 'Perda de intensidade das barras de LED. A troca devolve o brilho original da TV.' , icone: 'MonitorOff' },
+      { titulo: 'Placa T-CON com falha', desc: 'Em telas grandes a T-CON trabalha mais. Falha gera listras, imagem dupla ou tela branca.' , icone: 'Cpu' },
+      { titulo: 'Fonte não sustenta a TV', desc: 'Telas grandes exigem mais da fonte. Capacitores estufados fazem a TV desligar sozinha depois de alguns minutos.' , icone: 'Plug' },
     ],
     faq: [
       { q: 'Vocês buscam TV de 65 ou 75 polegadas em casa?', a: 'Buscamos sim, sem custo, com transporte apropriado para telas grandes. É justamente nesses tamanhos que o transporte por conta própria mais causa dano.' },
