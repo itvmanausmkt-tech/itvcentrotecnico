@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Instagram, Facebook, MapPin, MessageCircle, Phone } from 'lucide-react';
-import { site } from '@/lib/site';
+import { site, whatsappTracked } from '@/lib/site';
 
 export function Footer() {
   return (
@@ -51,7 +51,7 @@ export function Footer() {
                 <Facebook className="h-4 w-4" />
               </a>
               <a
-                href={site.whatsappPrimary}
+                href={whatsappTracked}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp"

@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import { Inter, Sora } from 'next/font/google';
 import './globals.css';
 import { site } from '@/lib/site';
-import { GoogleAdsTracker } from '@/components/GoogleAdsTracker';
+import Script from 'next/script';
+import { LeadTracker } from '@/components/LeadTracker';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -71,7 +72,13 @@ export default function RootLayout({
       </head>
       <body>
         {children}
-        <GoogleAdsTracker />
+        <LeadTracker />
+        {/* Gyrehub — atribuição de origem do lead (pixel do link tl1xch) */}
+        <Script
+          id="gyrehub-pixel"
+          strategy="afterInteractive"
+          src="https://gyrehub.com.br/pixel.js?id=9157932e-6db1-4cd2-aa90-49f7bf5ac625&link=tl1xch"
+        />
       </body>
     </html>
   );

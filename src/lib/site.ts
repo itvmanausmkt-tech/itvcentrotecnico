@@ -35,9 +35,20 @@ export const site = {
   rating: 5.0,
 };
 
-export const whatsappMessage = (msg: string) =>
-  `${site.whatsappPrimary}?text=${encodeURIComponent(msg)}`;
+/**
+ * Link de WhatsApp rastreado pelo Gyrehub (atribuição de origem do lead).
+ *
+ * O redirecionador NÃO repassa `?text=` — a mensagem pré-preenchida é definida
+ * no painel do Gyrehub e já carrega o marcador `[REF:tl1xch]`, que é o que
+ * permite a atribuição. Por isso `whatsappMessage()` devolve o mesmo link em
+ * todos os contextos: a personalização por marca passou a ser responsabilidade
+ * do painel, não do site.
+ *
+ * Para voltar ao link direto, basta apontar `whatsappTracked` para
+ * `site.whatsappPrimary`.
+ */
+export const whatsappTracked = 'https://gyrehub.com.br/r/tl1xch';
 
-export const defaultWhatsapp = whatsappMessage(
-  'Olá! Vim pelo site e quero um orçamento para minha TV.',
-);
+export const whatsappMessage = (_msg?: string) => whatsappTracked;
+
+export const defaultWhatsapp = whatsappTracked;
