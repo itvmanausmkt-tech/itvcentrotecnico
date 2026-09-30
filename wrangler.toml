@@ -1,0 +1,17 @@
+# Cloudflare Workers — serve o site estático gerado pelo Next.js.
+#
+# O `next build` com `output: 'export'` (next.config.mjs) gera tudo em ./out,
+# e é essa pasta que o Worker publica. No fluxo de Pages esse caminho vai no
+# campo "Build output directory" do painel; aqui ele mora neste arquivo.
+#
+# Painel (Workers Builds):
+#   Build command:   npm run build
+#   Deploy command:  npx wrangler deploy
+#   Root directory:  (vazio — o package.json está na raiz do repositório)
+
+name = "itvcentrotecnico"
+compatibility_date = "2026-09-30"
+
+[assets]
+directory = "./out"
+not_found_handling = "404-page"
