@@ -22,8 +22,12 @@ const ICONES: Record<IconeNome, React.ElementType> = {
 };
 
 export function BrandPage({ brand }: { brand: Brand }) {
+  // 'TVs Grandes' não é nome de marca — encaixar como "minha TV TVs Grandes"
+  // ficava errado, então essa entrada usa uma frase própria.
   const wa = whatsappMessage(
-    `Olá! Vim pelo site e quero um orçamento para minha TV ${brand.marca}.`,
+    brand.slug === 'conserto-tv-grande'
+      ? 'Olá! Vim pelo site e quero um orçamento para o conserto da minha TV grande.'
+      : `Olá! Vim pelo site e quero um orçamento para minha TV ${brand.marca}.`,
   );
 
   return (

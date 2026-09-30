@@ -36,19 +36,27 @@ export const site = {
 };
 
 /**
- * Link de WhatsApp rastreado pelo Gyrehub (atribuição de origem do lead).
+ * Link de WhatsApp dos CTAs.
  *
- * O redirecionador NÃO repassa `?text=` — a mensagem pré-preenchida é definida
- * no painel do Gyrehub e já carrega o marcador `[REF:tl1xch]`, que é o que
- * permite a atribuição. Por isso `whatsappMessage()` devolve o mesmo link em
- * todos os contextos: a personalização por marca passou a ser responsabilidade
- * do painel, não do site.
+ * O rastreamento pelo Gyrehub (gyrehub.com.br/r/tl1xch) está PAUSADO: o número
+ * cadastrado lá tem 12 dígitos (+55 92 9237-3523), sem o nono dígito do celular.
+ * Um `wa.me` com 12 dígitos não abre a conversa, então todo lead morreria.
  *
- * Para voltar ao link direto, basta apontar `whatsappTracked` para
- * `site.whatsappPrimary`.
+ * Para religar assim que o número for corrigido no painel do Gyrehub:
+ *   1. `whatsappTracked = 'https://gyrehub.com.br/r/tl1xch'`
+ *   2. `whatsappMessage = (_msg?: string) => whatsappTracked`
+ *   3. `defaultWhatsapp = whatsappTracked`
+ * Atenção: o redirecionador ignora `?text=`, então a mensagem por marca passa a
+ * vir do painel do Gyrehub e a personalização abaixo deixa de valer.
+ *
+ * O pixel do Meta e o do Gyrehub seguem ativos — medem visita e lead
+ * independentemente de qual link o botão usa.
  */
-export const whatsappTracked = 'https://gyrehub.com.br/r/tl1xch';
+export const whatsappTracked = site.whatsappPrimary;
 
-export const whatsappMessage = (_msg?: string) => whatsappTracked;
+export const whatsappMessage = (msg: string) =>
+  `${site.whatsappPrimary}?text=${encodeURIComponent(msg)}`;
 
-export const defaultWhatsapp = whatsappTracked;
+export const defaultWhatsapp = whatsappMessage(
+  'Olá! Vim pelo site e quero um orçamento para minha TV.',
+);
