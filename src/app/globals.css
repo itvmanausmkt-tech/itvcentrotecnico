@@ -8,6 +8,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* foco e âncoras não ficam escondidos atrás do menu fixo (h-20) */
+  scroll-padding-top: 6rem;
 }
 
 body {
@@ -123,4 +125,160 @@ body {
   .anim-fade-scale {
     animation: none;
   }
+}
+
+/* ===== Animações inspiradas nos sites modelo ===== */
+
+/* Anéis pulsando no botão do WhatsApp (estilo Bastos) */
+@keyframes pulso-zap {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.anel-zap {
+  animation: pulso-zap 2.8s ease-out infinite;
+}
+.anel-zap.atraso {
+  animation-delay: 1.4s;
+}
+
+/* Foto ampliada "ligando" como TV: linha de luz que abre a tela.
+   Só transform e opacity, sem flash branco. */
+@keyframes tv-liga {
+  0% { transform: scale(0.06, 0.006); opacity: 0.9; }
+  35% { transform: scale(1, 0.006); opacity: 1; }
+  70% { transform: scale(1, 1); }
+  100% { transform: none; }
+}
+.tv-liga {
+  position: relative;
+  animation: tv-liga 0.65s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tv-liga,
+  .anel-zap {
+    animation: none;
+  }
+}
+
+/* Galeria "A loja": parede de telas. Um módulo 16:9 repetido numa grade estrita,
+   com uma tela dupla no centro. 9 fotos no desktop, 6 no celular, todas com "Ver todas". */
+.parede {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.parede > li { min-width: 0; }
+.parede > li.mestra { grid-column: 1 / -1; }
+.parede > li.mestra-1 { order: -1; }
+/* no celular, as duas fotos em pé não ficam lado a lado */
+.parede:not(.toda) > li:nth-child(5) { order: 1; }
+.parede:not(.toda) > li[data-extra],
+.parede:not(.toda) > li[data-m-extra] { display: none; }
+@media (min-width: 640px) {
+  .parede { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+  .parede:not(.toda) > li[data-m-extra] { display: block; }
+  .parede:not(.toda) > li:nth-child(5) { order: 0; }
+  .parede > li.mestra { grid-column: 2 / 4; grid-row: 1 / 3; order: 0; }
+}
+.tela {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #010402;
+  cursor: zoom-in;
+}
+.tela picture,
+.tela img { width: 100%; height: 100%; }
+.tela img { object-fit: cover; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+/* foto em pé: inteira, com as faixas pretas que a TV mostra */
+.tela.em-pe img { object-fit: contain; }
+/* borda do vidro, por cima da foto */
+.tela::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+  pointer-events: none;
+  transition: box-shadow 0.3s;
+}
+.tela:hover img { transform: scale(1.03); }
+.tela:hover::after { box-shadow: inset 0 0 0 1px rgba(46, 231, 111, 0.45); }
+.tela:focus-visible { outline: 2px solid #2ee76f; outline-offset: 3px; }
+@media (min-width: 640px) {
+  .parede > li.mestra .tela { aspect-ratio: auto; height: 100%; border-radius: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tela img { transition: none; }
+  .tela:hover img { transform: none; }
+}
+
+/* Chamada final: a TV da marca liga uma vez quando a seção aparece. */
+.cta-tv { position: relative; max-width: 28rem; margin-inline: auto; }
+.cta-tv-vidro {
+  position: relative;
+  padding: 10px 10px 22px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #010402;
+  box-shadow: 0 30px 60px -25px rgba(0, 0, 0, 0.75);
+}
+.cta-tv-imagem {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #000;
+}
+.cta-tv-imagem picture { display: block; height: 100%; }
+/* reflexo que passa uma vez pelo vidro depois que a tela liga */
+.cta-tv-imagem::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, 0.14) 50%, transparent 62%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+.cta-tv.espera .cta-tv-imagem picture { transform: scale(1, 0.006); opacity: 0; }
+.cta-tv.ligando .cta-tv-imagem picture { animation: tv-liga 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.cta-tv.ligando .cta-tv-imagem::after { animation: cta-reflexo 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both; }
+@keyframes cta-reflexo {
+  from { transform: translateX(-120%); }
+  to { transform: translateX(120%); }
+}
+/* LED na borda de baixo da moldura, como numa TV */
+.cta-tv-led {
+  position: absolute;
+  right: 18px;
+  bottom: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #2ee76f;
+  box-shadow: 0 0 10px rgba(46, 231, 111, 0.8);
+  transition: background-color 0.3s 0.5s, box-shadow 0.3s 0.5s;
+}
+.cta-tv.espera .cta-tv-led { background: rgba(244, 251, 246, 0.2); box-shadow: none; transition-delay: 0s; }
+
+/* luzes de fundo: deriva lenta, pausada fora da tela */
+.cta-luz-a { animation: cta-deriva-a 16s ease-in-out infinite alternate; }
+.cta-luz-b { animation: cta-deriva-b 19s ease-in-out infinite alternate; }
+.cta-luzes.pausada > div { animation-play-state: paused; }
+@keyframes cta-deriva-a { to { transform: translate(-60px, 40px) scale(1.08); } }
+@keyframes cta-deriva-b { to { transform: translate(70px, -30px) scale(1.1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-luz-a,
+  .cta-luz-b,
+  .cta-tv.ligando .cta-tv-imagem picture,
+  .cta-tv.ligando .cta-tv-imagem::after { animation: none; }
 }

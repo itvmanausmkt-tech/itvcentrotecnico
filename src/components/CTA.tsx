@@ -1,15 +1,16 @@
-import { MessageCircle, Phone, ArrowRight } from 'lucide-react';
+import { Phone, ArrowRight } from 'lucide-react';
 import { defaultWhatsapp, site } from '@/lib/site';
-import { Picture } from './ui/Picture';
+import { CtaTela } from './CtaTela';
+import { CtaLuzes } from './CtaLuzes';
 import { Reveal } from './ui/Reveal';
+import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
 
 export function CTA() {
   return (
     <section className="section relative overflow-hidden">
       <div className="container-max container-px">
         <Reveal className="relative overflow-hidden rounded-3xl border border-white/10 bg-forest-radial p-10 sm:p-14 lg:p-20">
-          <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-forest-500/30 blur-3xl" />
-          <div className="absolute -bottom-40 -left-32 h-96 w-96 rounded-full bg-forest-700/20 blur-3xl" />
+          <CtaLuzes />
 
           <div className="relative grid items-center gap-10 lg:grid-cols-12">
             <div className="lg:col-span-7">
@@ -29,7 +30,7 @@ export function CTA() {
                   rel="noopener noreferrer"
                   className="btn-primary group text-base"
                 >
-                  <MessageCircle className="h-5 w-5" />
+                  <WhatsAppIcon className="h-5 w-5" />
                   Quero consertar minha TV
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </a>
@@ -40,18 +41,8 @@ export function CTA() {
               </div>
             </div>
 
-            <div className="relative hidden lg:col-span-5 lg:block">
-              <div className="relative mx-auto aspect-square w-full max-w-sm overflow-hidden rounded-3xl border border-white/10 bg-ink-950/40 backdrop-blur">
-                <Picture
-                  base="brand-mark"
-                  widths={[320, 640]}
-                  sizes="400px"
-                  alt="Marca iTV Centro Técnico"
-                  width={640}
-                  height={362}
-                  className="absolute inset-0 h-full w-full object-cover"
-                />
-              </div>
+            <div className="relative mx-auto w-full max-w-xs lg:col-span-5 lg:max-w-none">
+              <CtaTela />
             </div>
           </div>
         </Reveal>

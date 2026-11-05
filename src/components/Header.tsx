@@ -2,8 +2,9 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { Menu, X, MessageCircle } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { defaultWhatsapp } from '@/lib/site';
+import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
 
 const nav = [
   { label: 'Serviços', href: '#servicos' },
@@ -46,11 +47,11 @@ export function Header() {
             <img
               src="/logo/itv-horizontal-white-280w.webp"
               alt="iTV Centro Técnico"
-              width={140}
-              height={140}
+              width={280}
+              height={112}
               fetchPriority="high"
               decoding="sync"
-              className="h-9 w-auto sm:h-10"
+              className="h-12 w-auto sm:h-14"
             />
           </picture>
         </Link>
@@ -74,7 +75,7 @@ export function Header() {
             rel="noopener noreferrer"
             className="btn-primary"
           >
-            <MessageCircle className="h-4 w-4" />
+            <WhatsAppIcon className="h-4 w-4" />
             Falar no WhatsApp
           </a>
         </div>
@@ -109,7 +110,7 @@ export function Header() {
               rel="noopener noreferrer"
               className="btn-primary mt-3 w-full"
             >
-              <MessageCircle className="h-4 w-4" />
+              <WhatsAppIcon className="h-4 w-4" />
               Falar no WhatsApp
             </a>
           </div>

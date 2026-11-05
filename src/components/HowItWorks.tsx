@@ -1,9 +1,10 @@
-import { MessageCircle, Truck, ClipboardCheck, Tv } from 'lucide-react';
+import { Truck, ClipboardCheck, Tv } from 'lucide-react';
 import { Reveal } from './ui/Reveal';
+import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
 
 const steps = [
   {
-    icon: MessageCircle,
+    icon: WhatsAppIcon,
     label: '01',
     title: 'Você chama no WhatsApp',
     desc: 'Manda foto e descreve o defeito. Em minutos, devolvemos um pré-orçamento.',

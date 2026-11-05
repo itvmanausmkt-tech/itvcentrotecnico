@@ -1,9 +1,5 @@
 import Link from 'next/link';
-import {
-  ArrowRight, MessageCircle, Plus, ShieldCheck, Truck, Clock, Wrench, Star,
-  MonitorOff, PowerOff, RefreshCw, AlertTriangle, Sparkles, Cable, Settings,
-  VolumeX, Lightbulb, Cpu, Plug,
-} from 'lucide-react';
+import { ArrowRight, Plus, ShieldCheck, Truck, Clock, Wrench, Star, MonitorOff, PowerOff, RefreshCw, AlertTriangle, Sparkles, Cable, Settings, VolumeX, Lightbulb, Cpu, Plug } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { HowItWorks } from '@/components/HowItWorks';
 import { Differentials } from '@/components/Differentials';
@@ -15,6 +11,7 @@ import { Reveal } from '@/components/ui/Reveal';
 import { Picture } from '@/components/ui/Picture';
 import { whatsappMessage, site } from '@/lib/site';
 import type { Brand, IconeNome } from '@/lib/brands';
+import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
 
 const ICONES: Record<IconeNome, React.ElementType> = {
   MonitorOff, PowerOff, RefreshCw, AlertTriangle, Sparkles,
@@ -63,7 +60,7 @@ export function BrandPage({ brand }: { brand: Brand }) {
 
                 <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                   <a href={wa} target="_blank" rel="noopener noreferrer" className="btn-primary group text-base">
-                    <MessageCircle className="h-5 w-5" />
+                    <WhatsAppIcon className="h-5 w-5" />
                     Orçamento grátis no WhatsApp
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </a>
@@ -169,7 +166,7 @@ export function BrandPage({ brand }: { brand: Brand }) {
 
             <Reveal className="mt-12 text-center">
               <a href={wa} target="_blank" rel="noopener noreferrer" className="btn-primary group text-base">
-                <MessageCircle className="h-5 w-5" />
+                <WhatsAppIcon className="h-5 w-5" />
                 Descrever meu problema
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </a>

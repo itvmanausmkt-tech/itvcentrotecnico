@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import { Instagram, Facebook, MapPin, MessageCircle, Phone } from 'lucide-react';
+import { Instagram, Facebook, MapPin, Phone } from 'lucide-react';
 import { site, whatsappTracked } from '@/lib/site';
+import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
 
 export function Footer() {
   return (
@@ -11,20 +12,20 @@ export function Footer() {
             <picture>
               <source
                 type="image/avif"
-                srcSet="/logo/itv-stacked-white-160w.avif 1x, /logo/itv-stacked-white-320w.avif 2x"
+                srcSet="/logo/itv-horizontal-white-280w.avif 1x, /logo/itv-horizontal-white-560w.avif 2x"
               />
               <source
                 type="image/webp"
-                srcSet="/logo/itv-stacked-white-160w.webp 1x, /logo/itv-stacked-white-320w.webp 2x"
+                srcSet="/logo/itv-horizontal-white-280w.webp 1x, /logo/itv-horizontal-white-560w.webp 2x"
               />
               <img
-                src="/logo/itv-stacked-white-160w.webp"
+                src="/logo/itv-horizontal-white-280w.webp"
                 alt="iTV Centro Técnico"
-                width={160}
-                height={160}
+                width={280}
+                height={112}
                 loading="lazy"
                 decoding="async"
-                className="h-20 w-auto"
+                className="h-14 w-auto"
               />
             </picture>
             <p className="mt-6 max-w-md text-sm leading-relaxed text-cream/60">
@@ -57,7 +58,7 @@ export function Footer() {
                 aria-label="WhatsApp"
                 className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-cream/70 transition-colors hover:border-forest-500/40 hover:text-forest-500"
               >
-                <MessageCircle className="h-4 w-4" />
+                <WhatsAppIcon className="h-4 w-4" />
               </a>
             </div>
           </div>
@@ -82,7 +83,7 @@ export function Footer() {
               <ul className="mt-5 space-y-3 text-sm text-cream/70">
                 <li>
                   <a href={site.whatsappPrimary} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-cream">
-                    <MessageCircle className="h-4 w-4" />
+                    <WhatsAppIcon className="h-4 w-4" />
                     (92) 99237-3523
                   </a>
                 </li>

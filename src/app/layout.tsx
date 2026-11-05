@@ -8,7 +8,7 @@ import { LeadTracker } from '@/components/LeadTracker';
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
-  display: 'optional',
+  display: 'swap',
   weight: ['400', '500', '600', '700'],
   preload: true,
 });
@@ -16,7 +16,7 @@ const inter = Inter({
 const sora = Sora({
   subsets: ['latin'],
   variable: '--font-sora',
-  display: 'optional',
+  display: 'swap',
   weight: ['600', '700'],
   preload: true,
 });

@@ -1,5 +1,5 @@
-import { MessageCircle } from 'lucide-react';
 import { defaultWhatsapp } from '@/lib/site';
+import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
 
 export function WhatsAppFAB() {
   return (
@@ -9,10 +9,12 @@ export function WhatsAppFAB() {
       rel="noopener noreferrer"
       aria-label="Falar no WhatsApp"
       style={{ animationDelay: '1s' }}
-      className="anim-fade-scale group fixed bottom-6 right-6 z-40 flex items-center gap-3 rounded-full bg-forest-500 px-5 py-3.5 font-semibold text-ink-950 shadow-glow transition-transform hover:scale-105 hover:shadow-[0_0_80px_rgba(46,231,111,0.7)]"
+      className="anim-fade-scale group fixed bottom-6 right-6 z-40 flex items-center gap-3 rounded-full bg-[#25D366] px-5 py-3.5 font-semibold text-white shadow-[0_10px_30px_-8px_rgba(37,211,102,0.7)] transition-transform hover:scale-105"
     >
-      <span className="absolute inset-0 -z-10 rounded-full bg-forest-500/40 blur-md animate-pulse-slow" />
-      <MessageCircle className="h-5 w-5" strokeWidth={2.2} />
+      <span className="absolute inset-0 -z-10 rounded-full bg-[#25D366]/40 blur-md animate-pulse-slow" />
+      <span aria-hidden="true" className="anel-zap absolute inset-0 -z-10 rounded-full border-2 border-[#25D366]" />
+      <span aria-hidden="true" className="anel-zap atraso absolute inset-0 -z-10 rounded-full border-2 border-[#25D366]" />
+      <WhatsAppIcon className="h-6 w-6" />
       <span className="hidden text-sm sm:inline">Fale conosco</span>
     </a>
   );

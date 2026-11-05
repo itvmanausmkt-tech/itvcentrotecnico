@@ -12,7 +12,7 @@ export const site = {
   },
   whatsappPrimary: 'https://wa.me/5592992373523',
   whatsappSecondary: 'https://wa.me/5592993347933',
-  instagram: 'https://www.instagram.com/itvmanaus/',
+  instagram: 'https://www.instagram.com/itvcentrotecnico/',
   facebook: 'https://www.facebook.com/itvmanausam/',
   email: 'contato@itvmanaus.com',
   address: {

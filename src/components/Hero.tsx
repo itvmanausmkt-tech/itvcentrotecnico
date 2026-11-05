@@ -1,6 +1,7 @@
-import { ArrowRight, MessageCircle, Star, Truck, ShieldCheck, Clock } from 'lucide-react';
+import { ArrowRight, Star, Truck, ShieldCheck, Clock } from 'lucide-react';
 import { defaultWhatsapp, site } from '@/lib/site';
 import { Picture } from './ui/Picture';
+import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
 
 export function Hero() {
   return (
@@ -11,11 +12,6 @@ export function Hero() {
       <div className="container-max container-px relative">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
           <div className="anim-fade-up lg:col-span-7">
-            <span className="eyebrow mb-6">
-              <span className="h-1.5 w-1.5 rounded-full bg-forest-500 shadow-glow" />
-              Centro técnico em Manaus · Desde 2019
-            </span>
-
             <h1 className="h-display text-balance text-5xl text-cream sm:text-6xl lg:text-7xl">
               Sua TV merece um{' '}
               <span className="bg-gradient-to-br from-forest-400 via-forest-500 to-forest-700 bg-clip-text text-transparent">
@@ -37,7 +33,7 @@ export function Hero() {
                 rel="noopener noreferrer"
                 className="btn-primary group text-base"
               >
-                <MessageCircle className="h-5 w-5" />
+                <WhatsAppIcon className="h-5 w-5" />
                 Solicitar orçamento agora
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </a>
