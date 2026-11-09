@@ -16,6 +16,9 @@ export type Brand = {
   fotoSecao: 'loja-showroom' | 'loja-balcao' | 'loja-fachada';
   fotoLarguras: number[];
   fotoAlt: string;
+  /** foto do topo da página completa (public/images/<heroFoto>-NNNw); sem ela, usa a do técnico */
+  heroFoto?: string;
+  heroFotoAlt?: string;
   tituloSecaoFoto: string;
   textoSecaoFoto: string;
   defeitos: Defeito[];
@@ -60,6 +63,8 @@ export const brands: Brand[] = [
   },
   {
     slug: 'conserto-tv-lg',
+    heroFoto: 'tecnico-lg',
+    heroFotoAlt: 'Técnico da iTV Centro Técnico ao lado de uma TV LG na bancada do laboratório',
     fotoSecao: 'loja-balcao',
     fotoLarguras: [640, 1024],
     fotoAlt: 'Balcão de atendimento da iTV Centro Técnico',

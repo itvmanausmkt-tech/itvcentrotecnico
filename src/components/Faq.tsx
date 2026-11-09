@@ -1,5 +1,6 @@
 import { Plus } from 'lucide-react';
 import { Reveal } from './ui/Reveal';
+import type { Brand } from '@/lib/brands';
 
 const faqs = [
   {
@@ -36,7 +37,10 @@ const faqs = [
   },
 ];
 
-export function Faq() {
+export function Faq({ brand }: { brand?: Brand }) {
+  const lista = brand
+    ? faqs.filter((f) => !f.q.startsWith('Vocês atendem qual marca'))
+    : faqs;
   return (
     <section id="faq" className="section relative">
       <div className="container-max container-px">
@@ -53,7 +57,7 @@ export function Faq() {
 
           <div className="lg:col-span-8">
             <div className="divide-y divide-white/10 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]">
-              {faqs.map((item, i) => (
+              {lista.map((item, i) => (
                 <details key={item.q} className="group" open={i === 0}>
                   <summary className="flex w-full cursor-pointer items-center justify-between gap-6 px-6 py-5 text-left transition-colors hover:bg-white/[0.03] [&::-webkit-details-marker]:hidden">
                     <span className="font-display text-base font-semibold text-cream sm:text-lg">

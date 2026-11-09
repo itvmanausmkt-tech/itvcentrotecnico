@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { BrandPage } from '@/components/brand/BrandPage';
+import { SitePage } from '@/components/SitePage';
 import { brandBySlug } from '@/lib/brands';
 
 const brand = brandBySlug('conserto-tv-lg')!;
@@ -18,5 +18,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <BrandPage brand={brand} />;
+  return <SitePage brand={brand} />;
 }

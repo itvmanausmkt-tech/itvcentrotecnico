@@ -21,8 +21,8 @@ const horarios: Record<number, [number, number] | null> = {
 };
 
 const linhas = [
-  { dias: [1, 2, 3, 4, 5], rotulo: 'Segunda a sexta', horas: '8h às 18h' },
-  { dias: [6], rotulo: 'Sábado', horas: '8h às 13h' },
+  { dias: [1, 2, 3, 4, 5], rotulo: 'Segunda a sexta', horas: '08:00 às 18:00' },
+  { dias: [6], rotulo: 'Sábado', horas: '08:00 às 13:00' },
   { dias: [0], rotulo: 'Domingo', horas: 'Fechado' },
 ];
 

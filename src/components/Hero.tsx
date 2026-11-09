@@ -1,9 +1,13 @@
 import { ArrowRight, Star, Truck, ShieldCheck, Clock } from 'lucide-react';
-import { defaultWhatsapp, site } from '@/lib/site';
+import { defaultWhatsapp, site, whatsappMessage } from '@/lib/site';
+import type { Brand } from '@/lib/brands';
 import { Picture } from './ui/Picture';
 import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
 
-export function Hero() {
+export function Hero({ brand }: { brand?: Brand }) {
+  const wa = brand
+    ? whatsappMessage(`Olá! Vim pelo site e quero um orçamento para minha TV ${brand.marca}.`)
+    : defaultWhatsapp;
   return (
     <section className="relative overflow-hidden pt-32 sm:pt-36 lg:pt-44">
       <div className="absolute inset-0 grid-bg mask-fade-bottom opacity-50" />
@@ -13,7 +17,7 @@ export function Hero() {
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
           <div className="anim-fade-up lg:col-span-7">
             <h1 className="h-display text-balance text-5xl text-cream sm:text-6xl lg:text-7xl">
-              Sua TV merece um{' '}
+              {brand ? `Sua TV ${brand.marca} merece um ` : 'Sua TV merece um '}
               <span className="bg-gradient-to-br from-forest-400 via-forest-500 to-forest-700 bg-clip-text text-transparent">
                 centro técnico
               </span>{' '}
@@ -21,14 +25,14 @@ export function Hero() {
             </h1>
 
             <p className="mt-7 max-w-xl text-balance text-lg leading-relaxed text-cream/70">
-              Reparo profissional de TVs em Manaus com coleta grátis em casa,
+              Reparo profissional de TVs{brand ? ` ${brand.marca}` : ''} em Manaus com coleta grátis em casa,
               garantia de até 6 meses e diagnóstico em até 48h. Mais de{' '}
               <strong className="text-cream">{site.reviewsCount}+ avaliações 5★</strong> no Google.
             </p>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <a
-                href={defaultWhatsapp}
+                href={wa}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary group text-base"
@@ -69,10 +73,10 @@ export function Hero() {
           >
             <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-white/10 bg-forest-radial">
               <Picture
-                base="tecnico"
+                base={brand?.heroFoto ?? 'tecnico'}
                 widths={[480, 768, 1200]}
                 sizes="(min-width: 1024px) 480px, 100vw"
-                alt="Técnico iTV Centro Técnico apresentando TV reparada"
+                alt={brand?.heroFotoAlt ?? 'Técnico iTV Centro Técnico apresentando TV reparada'}
                 width={1200}
                 height={675}
                 priority

@@ -7,6 +7,7 @@ import {
   RefreshCw,
 } from 'lucide-react';
 import { Reveal } from './ui/Reveal';
+import type { Brand } from '@/lib/brands';
 
 const problems = [
   {
@@ -41,14 +42,14 @@ const problems = [
   },
 ];
 
-export function Problems() {
+export function Problems({ brand }: { brand?: Brand }) {
   return (
     <section className="section relative" id="problemas">
       <div className="container-max container-px">
         <Reveal className="mx-auto max-w-2xl text-center">
           <span className="eyebrow mb-4">O que resolvemos</span>
           <h2 className="h-display text-4xl text-cream sm:text-5xl">
-            Sua TV está com algum desses problemas?
+            {brand ? `Sua TV ${brand.marca} está com algum desses problemas?` : 'Sua TV está com algum desses problemas?'}
           </h2>
           <p className="mt-5 text-lg text-cream/70">
             70% dos defeitos têm conserto simples e rápido. Antes de jogar fora, deixa

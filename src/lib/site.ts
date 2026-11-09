@@ -27,8 +27,8 @@ export const site = {
       'https://www.google.com/maps?q=Rua+Visconde+de+Utinga+628+Manaus+AM+69058-810&output=embed',
   },
   hours: {
-    weekdays: 'Seg a Sex · 8h às 18h',
-    saturday: 'Sábado · 8h às 13h',
+    weekdays: 'Seg a Sex · 08:00 às 18:00',
+    saturday: 'Sábado · 08:00 às 13:00',
     sunday: 'Domingo · Fechado',
   },
   reviewsCount: '1.250',
