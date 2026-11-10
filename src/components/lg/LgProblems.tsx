@@ -1,10 +1,12 @@
 import { VolumeX, ZapOff, RefreshCw } from 'lucide-react';
-import { whatsappMessage } from '@/lib/site';
+import { defaultWhatsapp, whatsappMessage } from '@/lib/site';
 import { Reveal } from '@/components/ui/Reveal';
 import { Picture } from '@/components/ui/Picture';
+import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
 
-// Mesmos defeitos e textos da seção "O que resolvemos" do site, adaptados para LG.
-// Os três mais buscados no Google Ads ganham foto de uma TV LG com o defeito.
+// Defeitos da página LG. Os três mais buscados no Google Ads ganham foto de uma
+// TV LG com o defeito (a foto também abre o WhatsApp); os outros viram uma linha
+// compacta de etiquetas.
 const comFoto = [
   {
     foto: 'lg-tela-preta',
@@ -65,7 +67,16 @@ export function LgProblems() {
         <div className="mt-16 grid gap-4 md:grid-cols-3">
           {comFoto.map((p, i) => (
             <Reveal key={p.foto} delay={i * 50} as="article" className="card card-hover flex flex-col">
-              <div className="relative aspect-[4/3] overflow-hidden bg-ink-900">
+              {/* A foto também abre o WhatsApp, com a mensagem padrão do site.
+                  Fora da ordem do Tab (o link de texto do card já é focável). */}
+              <a
+                href={defaultWhatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                tabIndex={-1}
+                aria-hidden="true"
+                className="group relative block aspect-[4/3] overflow-hidden bg-ink-900"
+              >
                 <Picture
                   base={p.foto}
                   widths={[480, 768]}
@@ -73,9 +84,13 @@ export function LgProblems() {
                   alt={p.alt}
                   width={768}
                   height={579}
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-              </div>
+                <span className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full bg-forest-500 px-3 py-1.5 text-xs font-bold text-ink-950 shadow-lg transition-transform group-hover:scale-105">
+                  <WhatsAppIcon className="h-3.5 w-3.5" />
+                  Orçamento
+                </span>
+              </a>
               <div className="flex flex-1 flex-col p-7">
                 <h3 className="font-display text-xl font-semibold text-cream">{p.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-cream/60">{p.desc}</p>
@@ -92,17 +107,21 @@ export function LgProblems() {
           ))}
         </div>
 
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {semFoto.map((p, i) => (
-            <Reveal key={p.title} delay={i * 50} className="card card-hover p-7">
-              <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-forest-500/20 to-forest-800/10 text-forest-500">
-                <p.icon className="h-6 w-6" strokeWidth={1.8} />
-              </div>
-              <h3 className="font-display text-xl font-semibold text-cream">{p.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-cream/60">{p.desc}</p>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal className="mt-8 flex flex-col items-center gap-4">
+          <span className="text-sm text-cream/55">Também resolvemos:</span>
+          <ul className="flex flex-wrap justify-center gap-2.5">
+            {semFoto.map((p) => (
+              <li
+                key={p.title}
+                title={p.desc}
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-medium text-cream/85"
+              >
+                <p.icon className="h-4 w-4 text-forest-500" strokeWidth={2} />
+                {p.title}
+              </li>
+            ))}
+          </ul>
+        </Reveal>
       </div>
     </section>
   );

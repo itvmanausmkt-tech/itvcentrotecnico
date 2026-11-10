@@ -1,0 +1,235 @@
+/*
+ * Comercial da iTV na tela da TV LG (topo da página LG).
+ * Ocupa a mesma área da tela medida em TvLg.module.css (.tela/.vidro).
+ * Fundo: só a foto da tela (Encontro das Águas), sem camada por cima; o texto
+ * lê bem pela sombra. Tamanhos em cqw (largura da tela da TV).
+ *
+ * Tempo: a TV termina de ligar em ~4,4 s (TvLg: --inicio 0.3s + 73% de 5.6s).
+ * O comercial começa aí e repete a cada 18 s, 6 s por cena:
+ *   cena 1 (0–6 s) problema · cena 2 (6–12 s) solução · cena 3 (12–18 s) Google + WhatsApp
+ * Dentro da cena, cada frase (.p) chega deslizando da esquerda, 0,7 s depois
+ * da anterior (--i = ordem).
+ * O botão do WhatsApp (.botao) fica fixo na gaveta direita do rack, fora da
+ * tela (posição em % da foto lg-sala-clara-esq, gaveta x 795–1155, y 665–790);
+ * entra quando a TV liga e não sai mais. Tamanhos em cqw da .cena de TvLg.
+ */
+
+.anuncio {
+  --ciclo: 18s;
+  --comeco: 4.4s;
+  --passo: 0.7s;
+  position: absolute;
+  left: 13.484%;
+  top: 13.864%;
+  width: 72.988%;
+  height: 53.523%;
+  overflow: hidden;
+  pointer-events: none;
+  container-type: size;
+  font-family: var(--font-sora), system-ui, sans-serif;
+  color: #fff;
+  text-shadow:
+    0 0.3cqw 1.2cqw rgba(0, 0, 0, 0.75),
+    0 0 3cqw rgba(0, 0, 0, 0.45);
+}
+
+.cenas {
+  position: absolute;
+  inset: 0;
+}
+
+.cena {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0 8cqw;
+  opacity: 0;
+}
+/* Sem animação: fica na cena 3 (marca e nota do Google) */
+.c3 {
+  opacity: 1;
+}
+
+.pergunta {
+  max-width: 78cqw;
+  font-size: 7.2cqw;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+.pergunta .p {
+  display: inline-block;
+}
+.pergunta em {
+  font-style: normal;
+  color: #2ee76f;
+}
+
+.titulo {
+  font-size: 9cqw;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.titulo strong {
+  color: #2ee76f;
+}
+
+.selos {
+  margin-top: 4.5cqh;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4cqh;
+  font-size: 3.8cqw;
+  font-weight: 700;
+}
+.selos li {
+  display: flex;
+  align-items: center;
+  gap: 1.6cqw;
+}
+.selos li::before {
+  content: '';
+  width: 1.6cqw;
+  height: 1.6cqw;
+  border-radius: 50%;
+  background: #2ee76f;
+  box-shadow: 0 0 1.4cqw rgba(46, 231, 111, 0.8);
+  flex-shrink: 0;
+}
+
+.logo {
+  width: 30cqw;
+  height: auto;
+  filter: drop-shadow(0 0.3cqw 1.2cqw rgba(0, 0, 0, 0.7));
+}
+
+.nota {
+  margin-top: 4cqh;
+  display: flex;
+  align-items: center;
+  gap: 1.6cqw;
+  font-size: 3.6cqw;
+  font-weight: 700;
+}
+.estrelas {
+  display: flex;
+  gap: 0.4cqw;
+  color: #2ee76f;
+}
+.estrelas svg {
+  width: 3.4cqw;
+  height: 3.4cqw;
+}
+
+.aviso {
+  margin-top: 3cqh;
+  font-size: 2.4cqw;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Botão fixo do WhatsApp, na frente da gaveta direita do rack */
+.botao {
+  position: absolute;
+  left: 83.5%;
+  top: 82.6%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9cqw;
+  padding: 1.1cqw 2.4cqw;
+  border-radius: 999px;
+  background: #2ee76f;
+  color: #04170d;
+  font-family: var(--font-sora), system-ui, sans-serif;
+  font-size: max(2.6cqw, 10px);
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow:
+    0 0.5cqw 1.6cqw rgba(0, 0, 0, 0.35),
+    0 0 0 0 rgba(46, 231, 111, 0.6);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+.botao:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+  background: #5cf08f;
+}
+.botao:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+.botaoIcone {
+  width: max(3cqw, 12px);
+  height: max(3cqw, 12px);
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .botao {
+    animation:
+      botaoEntra 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 4.4s backwards,
+      botaoPulso 2.4s ease-out 5.4s infinite;
+  }
+  .cena {
+    animation: var(--ciclo) linear var(--comeco) infinite backwards;
+  }
+  .c1 { animation-name: cena1; }
+  .c2 { animation-name: cena2; }
+  .c3 { animation-name: cena3; }
+
+  .p {
+    animation: var(--ciclo) cubic-bezier(0.2, 0.8, 0.2, 1)
+      calc(var(--comeco) + var(--i, 0) * var(--passo)) infinite backwards;
+  }
+  .c1 .p { animation-name: chega1; }
+  .c2 .p { animation-name: chega2; }
+  .c3 .p { animation-name: chega3; }
+}
+
+/* Cena inteira: aparece no início da sua janela e some no fim */
+@keyframes cena1 {
+  0% { opacity: 0; }
+  1.5%, 31% { opacity: 1; }
+  33.3%, 100% { opacity: 0; }
+}
+@keyframes cena2 {
+  0%, 33.3% { opacity: 0; }
+  34.8%, 64.4% { opacity: 1; }
+  66.6%, 100% { opacity: 0; }
+}
+@keyframes cena3 {
+  0%, 66.6% { opacity: 0; }
+  68.1%, 97.8% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Cada frase chegando: desliza da esquerda, desfocada, e assenta (~0,9 s) */
+@keyframes chega1 {
+  0% { opacity: 0; transform: translateX(-10cqw); filter: blur(4px); }
+  5%, 33% { opacity: 1; transform: none; filter: none; }
+  34%, 100% { opacity: 0; }
+}
+@keyframes chega2 {
+  0%, 33.3% { opacity: 0; transform: translateX(-10cqw); filter: blur(4px); }
+  38.3%, 66.6% { opacity: 1; transform: none; filter: none; }
+  67.6%, 100% { opacity: 0; }
+}
+@keyframes chega3 {
+  0%, 66.6% { opacity: 0; transform: translateX(-10cqw); filter: blur(4px); }
+  71.6%, 99.9% { opacity: 1; transform: none; filter: none; }
+  100% { opacity: 0; }
+}
+
+/* Botão: entra uma vez quando a TV liga e fica; depois pulsa de leve */
+@keyframes botaoEntra {
+  0% { opacity: 0; transform: translate(-50%, -30%) scale(0.9); }
+  100% { opacity: 1; transform: translate(-50%, -50%); }
+}
+@keyframes botaoPulso {
+  0% { box-shadow: 0 0.5cqw 1.6cqw rgba(0, 0, 0, 0.35), 0 0 0 0 rgba(46, 231, 111, 0.6); }
+  70%, 100% { box-shadow: 0 0.5cqw 1.6cqw rgba(0, 0, 0, 0.35), 0 0 0 1.6cqw rgba(46, 231, 111, 0); }
+}

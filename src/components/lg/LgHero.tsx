@@ -2,6 +2,7 @@ import { ArrowRight, Star, Truck, ShieldCheck, Clock } from 'lucide-react';
 import { site, whatsappMessage } from '@/lib/site';
 import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
 import { TvLg } from './TvLg';
+import s from './LgHero.module.css';
 
 export const waLg = whatsappMessage(
   'Olá! Vim pelo Google e quero um orçamento para minha TV LG.',
@@ -9,6 +10,8 @@ export const waLg = whatsappMessage(
 
 // Topo da landing page LG (Google Ads). Mesma estrutura e estilo do Hero do site;
 // muda o texto e, no lugar da foto, a TV LG que liga ao abrir a página.
+// No celular os 3 selos são pílulas de uma linha. "Luz ambiente": quando a TV
+// liga, um brilho com as cores da tela aparece atrás do quadro (LgHero.module.css).
 export function LgHero() {
   return (
     <section className="relative overflow-hidden pt-32 sm:pt-36 lg:pt-44">
@@ -48,7 +51,7 @@ export function LgHero() {
               </a>
             </div>
 
-            <div className="mt-12 grid grid-cols-3 gap-3 sm:gap-6">
+            <div className="mt-10 flex flex-wrap gap-2 sm:mt-12 sm:grid sm:grid-cols-3 sm:gap-6">
               {[
                 { icon: Truck, label: 'Coleta grátis em casa' },
                 { icon: ShieldCheck, label: 'Garantia até 6 meses' },
@@ -56,12 +59,12 @@ export function LgHero() {
               ].map(({ icon: Icon, label }) => (
                 <div
                   key={label}
-                  className="flex flex-col items-start gap-2 rounded-xl border border-white/10 bg-white/[0.03] p-3 sm:flex-row sm:items-center sm:gap-3 sm:p-4"
+                  className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] py-1.5 pl-1.5 pr-3.5 sm:gap-3 sm:rounded-xl sm:p-4"
                 >
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-forest-500/10 text-forest-500">
-                    <Icon className="h-4 w-4" strokeWidth={2} />
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-forest-500/10 text-forest-500 sm:h-9 sm:w-9 sm:rounded-lg">
+                    <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2} />
                   </div>
-                  <span className="text-xs leading-tight text-cream/80 sm:text-sm">
+                  <span className="whitespace-nowrap text-[13px] leading-tight text-cream/85 sm:whitespace-normal sm:text-sm">
                     {label}
                   </span>
                 </div>
@@ -75,6 +78,7 @@ export function LgHero() {
           </div>
 
           <div className="relative lg:col-span-6">
+            <div className={s.luz} aria-hidden="true" />
             <TvLg />
 
             <div className="mx-auto mt-6 flex max-w-md items-center justify-between rounded-2xl border border-white/10 bg-ink-950/70 p-4 backdrop-blur-xl">

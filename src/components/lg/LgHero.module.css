@@ -1,0 +1,41 @@
+/*
+ * Melhoria 10: luz ambiente da TV do topo. Brilho atrás do quadro com as cores
+ * da imagem da tela (céu azul, floresta verde, rio barrento). Acende junto com a
+ * TV (TvLg: imagem aparece ~4,4 s) e depois "respira" devagar, como a luz de uma
+ * TV ligada refletindo na parede. Sem animação: já fica aceso.
+ */
+.luz {
+  position: absolute;
+  inset: -16% -12% -2%;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 4rem;
+  background:
+    radial-gradient(60% 55% at 30% 35%, rgba(90, 170, 255, 0.55), transparent 72%),
+    radial-gradient(60% 60% at 72% 40%, rgba(46, 231, 111, 0.5), transparent 72%),
+    radial-gradient(55% 45% at 35% 70%, rgba(214, 150, 80, 0.4), transparent 72%);
+  filter: blur(56px);
+  opacity: 0.85;
+}
+/* o quadro da TV fica por cima da luz */
+.luz + * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .luz {
+    animation:
+      acende 1.2s ease-out 4.2s backwards,
+      respira 7s ease-in-out 5.4s infinite;
+  }
+}
+
+@keyframes acende {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 0.85; transform: none; }
+}
+@keyframes respira {
+  0%, 100% { opacity: 0.85; transform: none; }
+  50% { opacity: 0.6; transform: scale(0.97); }
+}

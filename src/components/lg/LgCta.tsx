@@ -23,7 +23,7 @@ export function LgCta() {
               </h2>
               <p className="mt-6 max-w-xl text-lg text-cream/70">
                 Manda uma mensagem agora. Em poucos minutos você recebe um pré-orçamento
-                e marcamos a coleta sem custo.
+                e marcamos a coleta grátis.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">

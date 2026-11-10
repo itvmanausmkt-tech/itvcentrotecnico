@@ -1,0 +1,5 @@
+/* Na grade, foto em pé preenche a tela (globals.css usa contain). */
+.galeria :global(.tela.em-pe img) {
+  object-fit: cover;
+  object-position: center 40%;
+}

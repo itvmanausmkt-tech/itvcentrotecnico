@@ -1,0 +1,50 @@
+/* FAQ da página LG, modo destaque (em validação na v2). */
+
+/* Brilho verde sutil num canto para quebrar o preto liso */
+.secao {
+  background: radial-gradient(45% 55% at 100% 0%, rgba(46, 231, 111, 0.08), transparent 70%);
+}
+
+/* Pergunta aberta: barra verde à esquerda e fundo levemente esverdeado */
+.item {
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+.item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #2ee76f;
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+.item[open] {
+  background: rgba(46, 231, 111, 0.05);
+}
+.item[open]::before {
+  transform: scaleY(1);
+}
+
+/* Abrir/fechar deslizando (navegadores que já suportam ::details-content;
+   nos outros abre na hora, como antes) */
+.item {
+  interpolate-size: allow-keywords;
+}
+.item::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition:
+    block-size 0.35s ease,
+    content-visibility 0.35s allow-discrete;
+}
+.item[open]::details-content {
+  block-size: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  .item::details-content {
+    transition: none;
+  }
+}

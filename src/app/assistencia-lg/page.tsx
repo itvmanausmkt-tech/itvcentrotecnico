@@ -1,23 +1,22 @@
 import type { Metadata } from 'next';
 import { Header } from '@/components/Header';
-import { SocialProof } from '@/components/SocialProof';
-import { HowItWorks } from '@/components/HowItWorks';
-import { Services } from '@/components/Services';
-import { Differentials } from '@/components/Differentials';
-import { Store } from '@/components/Store';
-import { Testimonials } from '@/components/Testimonials';
-import { Faq } from '@/components/Faq';
 import { Footer } from '@/components/Footer';
-import { WhatsAppFAB } from '@/components/WhatsAppFAB';
 import { LgHero } from '@/components/lg/LgHero';
 import { LgProblems } from '@/components/lg/LgProblems';
 import { LgCta } from '@/components/lg/LgCta';
-import { brandBySlug } from '@/lib/brands';
+import { LgDiferenciais } from '@/components/lg/LgDiferenciais';
+import { LgFaq } from '@/components/lg/LgFaq';
+import { LgLinhas } from '@/components/lg/LgLinhas';
+import { LgServicos } from '@/components/lg/LgServicos';
+import { LgLoja } from '@/components/lg/LgLoja';
+import { LgFAB } from '@/components/lg/LgFAB';
+import { LgComoFunciona } from '@/components/lg/LgComoFunciona';
+import { LgDepoimentos } from '@/components/lg/LgDepoimentos';
 
-// Landing page LG para o Google Ads (etapa 1). Mesma ordem de seções da página
-// inicial; só o topo e "O que resolvemos" são próprios da LG. A página inicial
-// e os componentes dela não foram alterados.
-const lg = brandBySlug('conserto-tv-lg')!;
+// Landing page LG para o Google Ads. Mesma ordem de seções da página inicial,
+// mas todas as seções com versão própria da LG em src/components/lg/ (ex.: Como
+// funciona em linha do tempo, Depoimentos claros, FAQ com o cartão do técnico).
+// A página inicial e os componentes dela não foram alterados.
 
 const title = 'Assistência Técnica de TV LG em Manaus | Conserto de Smart TV LG';
 const description =
@@ -44,18 +43,18 @@ export default function AssistenciaLgPage() {
       <Header />
       <main>
         <LgHero />
-        <SocialProof brand={lg} />
+        <LgLinhas />
         <LgProblems />
-        <HowItWorks />
-        <Services />
-        <Differentials />
-        <Store />
-        <Testimonials />
-        <Faq brand={lg} />
+        <LgComoFunciona />
+        <LgServicos />
+        <LgDiferenciais />
+        <LgLoja />
+        <LgDepoimentos />
+        <LgFaq destaque />
         <LgCta />
       </main>
       <Footer />
-      <WhatsAppFAB />
+      <LgFAB />
     </>
   );
 }
