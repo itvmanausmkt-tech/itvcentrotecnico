@@ -1,0 +1,156 @@
+/* TV Samsung da chamada final (página Samsung). */
+
+.tv {
+  position: relative;
+  max-width: 30rem;
+  margin-inline: auto;
+  padding-bottom: 1.6rem;
+}
+
+/* Painel: moldura preta fina, com um fio de luz na borda como o acabamento metálico */
+.painel {
+  position: relative;
+  z-index: 1;
+  padding: 6px 6px 0;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #1a1c1f 0%, #0a0b0c 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 40px 70px -30px rgba(0, 0, 0, 0.85),
+    0 0 60px -20px rgba(46, 231, 111, 0.25);
+}
+
+.tela {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #000;
+}
+.tela picture {
+  display: block;
+  height: 100%;
+}
+.foto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Vidro: sombra interna nas bordas e reflexo fixo leve */
+.tela::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.55);
+  background: linear-gradient(118deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 30%, transparent 31%);
+}
+/* Reflexo que passa uma vez depois que a tela liga */
+.tela::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, 0.14) 50%, transparent 62%);
+  transform: translateX(-120%);
+}
+
+/* Rodapé da TV com o logo Samsung no centro */
+.queixo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+}
+.marca {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-sora), system-ui, sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #b9bec4;
+}
+.simbolo {
+  width: 11px;
+  height: 11px;
+}
+.led {
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  width: 3px;
+  height: 3px;
+  border-radius: 999px;
+  transform: translateX(-50%);
+  background: #ff4d4d;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Pés finos nas pontas, como no modelo da foto do topo */
+.pes {
+  position: absolute;
+  left: 9%;
+  right: 9%;
+  bottom: 0.7rem;
+  height: 1.1rem;
+  display: flex;
+  justify-content: space-between;
+}
+.pes span {
+  width: 2.8rem;
+  height: 100%;
+  background: linear-gradient(180deg, #4a4f56, #1c1e22);
+  clip-path: polygon(40% 0, 60% 0, 100% 100%, 82% 100%, 50% 30%, 18% 100%, 0 100%);
+}
+
+/* Sombra no "móvel" embaixo da TV */
+.sombra {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: 0.35rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.6), transparent);
+}
+
+/* Liga quando a seção aparece */
+.espera .tela picture {
+  transform: scale(1, 0.006);
+  opacity: 0;
+}
+.espera .led {
+  opacity: 1;
+}
+.ligando .tela picture {
+  animation: liga 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.ligando .tela::after {
+  animation: reflexo 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
+}
+
+@keyframes liga {
+  0% { transform: scale(0.06, 0.006); opacity: 0.9; }
+  35% { transform: scale(1, 0.006); opacity: 1; }
+  70% { transform: scale(1, 1); }
+  100% { transform: none; }
+}
+@keyframes reflexo {
+  from { transform: translateX(-120%); }
+  to { transform: translateX(120%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ligando .tela picture,
+  .ligando .tela::after {
+    animation: none;
+  }
+}

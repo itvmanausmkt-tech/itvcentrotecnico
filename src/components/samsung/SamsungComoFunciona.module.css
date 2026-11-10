@@ -1,0 +1,194 @@
+/*
+ * "Como funciona" da página Samsung: linha do tempo (fundo em SamsungFundoClaro.module.css).
+ * Estados (classe no <ol>): aceso (padrão, tudo verde) · espera (antes de
+ * aparecer na tela: linha vazia, marcos cinza) · acendendo (linha enche em
+ * 2,4 s e cada marco acende quando a linha chega nele).
+ * Celular: linha vertical à esquerda; a partir de 1024px: horizontal.
+ */
+
+.eyebrow {
+  display: inline-flex;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #0f7a3d;
+}
+
+.linha {
+  --marco: 4rem;
+  --cor: #2ee76f;
+  --escuro: #0f7a3d;
+  position: relative;
+  margin-top: 4rem;
+  display: grid;
+  gap: 2.5rem;
+}
+
+/* Celular: um trecho de linha por passo, do marco até o próximo passo */
+.linha::before,
+.linha::after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+.passo:not(:last-child)::before,
+.passo:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: calc(var(--marco) / 2 - 1.5px);
+  top: var(--marco);
+  bottom: -2.5rem;
+  width: 3px;
+}
+.passo:not(:last-child)::before {
+  background: rgba(5, 13, 9, 0.1);
+}
+.passo:not(:last-child)::after {
+  background: linear-gradient(var(--cor), var(--escuro));
+  transform-origin: top;
+}
+
+.passo {
+  position: relative;
+  padding-left: calc(var(--marco) + 1.5rem);
+}
+.passo h3 {
+  margin-top: 0.85rem;
+}
+
+.marco {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--marco);
+  height: var(--marco);
+  border-radius: 50%;
+  background: var(--cor);
+  color: #04170d;
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.9), 0 10px 30px -8px rgba(46, 231, 111, 0.7);
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease,
+    box-shadow 0.5s ease,
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.icone {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+.numero {
+  position: absolute;
+  right: -0.35rem;
+  top: -0.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: #050d09;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+@media (min-width: 1024px) {
+  .linha {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem;
+  }
+  .passo:not(:last-child)::before,
+  .passo:not(:last-child)::after {
+    display: none;
+  }
+  .linha::before,
+  .linha::after {
+    display: block;
+    left: 12.5%;
+    right: 12.5%;
+    top: calc(var(--marco) / 2 - 1.5px);
+    bottom: auto;
+    width: auto;
+    height: 3px;
+  }
+  .linha::before {
+    background: rgba(5, 13, 9, 0.1);
+  }
+  .linha::after {
+    background: linear-gradient(90deg, var(--cor), var(--escuro));
+    transform-origin: left;
+  }
+  .passo {
+    padding-left: 0;
+    text-align: center;
+  }
+  .passo h3 {
+    margin-top: 1.25rem;
+  }
+  .marco {
+    position: relative;
+    margin: 0 auto;
+  }
+}
+
+/* Antes de aparecer: linha vazia, marcos apagados */
+.espera .passo::after {
+  transform: scaleY(0);
+}
+.espera .marco {
+  background: #e3ece6;
+  color: rgba(5, 13, 9, 0.35);
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.9);
+  transform: scale(0.9);
+}
+@media (min-width: 1024px) {
+  .espera::after {
+    transform: scaleX(0);
+  }
+}
+
+/* Acendendo: a linha enche e cada marco acende na sua vez */
+.acendendo .passo::after {
+  animation: encheV 0.75s linear both;
+  animation-delay: calc(var(--i) * 0.75s + 0.3s);
+}
+.acendendo .marco {
+  animation: acende 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i) * 0.75s);
+}
+@media (min-width: 1024px) {
+  .acendendo::after {
+    animation: encheH 2.4s cubic-bezier(0.45, 0, 0.25, 1) both;
+  }
+}
+
+@keyframes encheV {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+@keyframes encheH {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes acende {
+  from {
+    background: #e3ece6;
+    color: rgba(5, 13, 9, 0.35);
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.9);
+    transform: scale(0.9);
+  }
+  60% {
+    transform: scale(1.12);
+  }
+  to {
+    background: var(--cor);
+    color: #04170d;
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.9), 0 10px 30px -8px rgba(46, 231, 111, 0.7);
+    transform: none;
+  }
+}

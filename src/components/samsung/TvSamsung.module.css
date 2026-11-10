@@ -1,0 +1,193 @@
+/*
+ * A TV Samsung da foto liga ao abrir a página.
+ * A foto é da TV já ligada (Encontro das Águas na tela). Por cima da área exata
+ * da tela fica uma "tampa" que simula a TV desligada e o boot:
+ *   1. sala na penumbra, tela preta com reflexo e LED de stand-by vermelho;
+ *   2. clique do controle: LED pisca e apaga, a luz de fundo acende com uma
+ *      tremida e vazamento de luz nas bordas (o "preto aceso" do LCD);
+ *   3. tela de boot "SAMSUNG";
+ *   4. a tampa some, a imagem entra com excesso de brilho e a sala clareia com
+ *      a luz da tela.
+ * Sem animação (reduzir movimento), o estado padrão já é a TV ligada.
+ *
+ * Posição da tela medida na foto samsung-sala (1168 x 880 px, janela à esquerda):
+ * x 158–1008, y 123–592; vídeo/tampa cobrem x 157,5–1010 e y 122–593
+ * para esconder a borda clara da imagem da foto.
+ */
+
+.cena {
+  --ciclo: 5.6s;
+  --inicio: 0.3s;
+  position: relative;
+  container-type: inline-size; /* cqw do botão do rack (SamsungTvAnuncio .botao) */
+  aspect-ratio: 1168 / 880;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #050d09;
+  box-shadow: 0 40px 90px -40px rgba(46, 231, 111, 0.35);
+}
+
+.foto,
+.foto img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.foto img {
+  object-fit: cover;
+}
+
+/* Tampa sobre a área da tela */
+.tela {
+  position: absolute;
+  left: 13.484%;
+  top: 13.864%;
+  width: 72.988%;
+  height: 53.523%;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  background: #030304;
+}
+
+/* Reflexo da sala no vidro com a TV desligada */
+.tela::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(112deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 30%, transparent 31%, transparent 64%, rgba(255, 255, 255, 0.03) 65%, transparent 82%),
+    radial-gradient(60% 50% at 10% 100%, rgba(255, 190, 120, 0.06), transparent 70%),
+    radial-gradient(60% 50% at 92% 100%, rgba(255, 190, 120, 0.06), transparent 70%);
+}
+
+/* Luz de fundo acesa, ainda sem imagem: preto cinza-azulado com vazamento nas bordas */
+.luz {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background:
+    radial-gradient(120% 55% at 50% 108%, rgba(150, 170, 200, 0.16), transparent 60%),
+    radial-gradient(35% 30% at 0% 100%, rgba(160, 180, 210, 0.16), transparent 70%),
+    radial-gradient(35% 30% at 100% 100%, rgba(160, 180, 210, 0.16), transparent 70%),
+    radial-gradient(25% 22% at 0% 0%, rgba(160, 180, 210, 0.09), transparent 70%),
+    radial-gradient(25% 22% at 100% 0%, rgba(160, 180, 210, 0.09), transparent 70%),
+    #0c0e11;
+}
+
+.boot {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35em;
+  opacity: 0;
+  font-family: var(--font-sora), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1rem, 3.4vw, 2.2rem);
+  letter-spacing: 0.04em;
+  color: #e9ecef;
+  text-shadow: 0 0 16px rgba(255, 255, 255, 0.2);
+}
+
+/* Nome SAMSUNG na tela de boot: só texto, letras espaçadas */
+.nome {
+  font-size: 0.8em;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  padding-left: 0.28em;
+}
+
+/* LED de stand-by, logo abaixo do nome SAMSUNG da borda */
+.led {
+  position: absolute;
+  left: 50%;
+  top: 68.4%;
+  width: 0.45%;
+  min-width: 3px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .foto img { animation: sala var(--ciclo) cubic-bezier(0.2, 0.7, 0.2, 1) var(--inicio) both; }
+  .tela { animation: tampa var(--ciclo) ease var(--inicio) both; }
+  .luz { animation: luz var(--ciclo) linear var(--inicio) both; }
+  .boot { animation: boot var(--ciclo) ease var(--inicio) both; }
+  .led { animation: led var(--ciclo) linear var(--inicio) both; }
+}
+
+/* Sala clara um pouco apagada; clareia de leve com a luz de fundo e de vez com a imagem */
+@keyframes sala {
+  0%, 14% { filter: brightness(0.72) saturate(0.85); }
+  19%, 73% { filter: brightness(0.76) saturate(0.88); }
+  82% { filter: brightness(1.06) saturate(1.03); }
+  100% { filter: none; }
+}
+
+@keyframes tampa {
+  0%, 73% { opacity: 1; }
+  83%, 100% { opacity: 0; }
+}
+
+/* Driver de LED partindo: tremida curta antes de firmar */
+@keyframes luz {
+  0%, 14% { opacity: 0; }
+  14.5% { opacity: 0.85; }
+  15.2% { opacity: 0.3; }
+  16.2% { opacity: 1; }
+  17.2% { opacity: 0.75; }
+  18.5%, 100% { opacity: 1; }
+}
+
+@keyframes boot {
+  0%, 21% { opacity: 0; transform: scale(0.98); }
+  27%, 65% { opacity: 1; transform: none; }
+  71%, 100% { opacity: 0; }
+}
+
+@keyframes led {
+  0%, 8% { background: #ff3b3b; box-shadow: 0 0 6px 1px rgba(255, 59, 59, 0.9); }
+  9.5% { background: #6b1a1a; box-shadow: none; }
+  11% { background: #ff3b3b; box-shadow: 0 0 6px 1px rgba(255, 59, 59, 0.9); }
+  13%, 100% { background: transparent; box-shadow: none; }
+}
+
+/* Vídeo do rio na mesma área da tela. "fill" desfaz o ajuste para 16:9 feito
+   ao gerar o vídeo, então ele casa pixel a pixel com a foto. Entra em fade
+   quando começa a tocar; a tampa do boot fica por cima até a TV "ligar". */
+.video {
+  position: absolute;
+  left: 13.484%;
+  top: 13.864%;
+  width: 72.988%;
+  height: 53.523%;
+  object-fit: fill;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+}
+.videoOn {
+  opacity: 1;
+}
+
+/* Vidro da tela por cima do vídeo: sombra interna nas bordas e um reflexo leve.
+   Cobre a emenda entre o vídeo e a moldura da foto, para a imagem parecer
+   "dentro" da TV em vez de colada por cima dela. */
+.vidro {
+  position: absolute;
+  left: 13.484%;
+  top: 13.864%;
+  width: 72.988%;
+  height: 53.523%;
+  pointer-events: none;
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.9),
+    inset 0 0 14px 2px rgba(0, 0, 0, 0.55);
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.015) 28%, transparent 29%);
+}
