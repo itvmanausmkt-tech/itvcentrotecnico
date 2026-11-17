@@ -1,22 +1,13 @@
 import type { Metadata } from 'next';
-import { SitePage } from '@/components/SitePage';
-import { brandBySlug } from '@/lib/brands';
+import { redirect } from 'next/navigation';
 
-const brand = brandBySlug('conserto-tv-lg')!;
-
+// Página antiga: agora leva para a landing page nova.
+// No Cloudflare, o redirecionamento 301 fica em public/_redirects.
 export const metadata: Metadata = {
-  title: brand.metaTitle,
-  description: brand.metaDescription,
-  keywords: brand.keywords,
-  alternates: { canonical: '/conserto-tv-lg/' },
-  openGraph: {
-    title: brand.metaTitle,
-    description: brand.metaDescription,
-    locale: 'pt_BR',
-    type: 'website',
-  },
+  alternates: { canonical: '/assistencia-lg/' },
+  robots: { index: false, follow: true },
 };
 
 export default function Page() {
-  return <SitePage brand={brand} />;
+  redirect('/assistencia-lg/');
 }

@@ -35,7 +35,7 @@ const items = [
   },
   {
     icon: Star,
-    title: '1.250+ avaliações 5★',
+    title: '1.500+ avaliações 5★',
     desc: 'A assistência de TV mais bem avaliada de Manaus no Google.',
   },
   {

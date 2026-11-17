@@ -103,7 +103,7 @@ export function Testimonials() {
           <div className="lg:col-span-7">
             <span className="eyebrow mb-4">Depoimentos</span>
             <h2 className="h-display text-4xl text-cream sm:text-5xl">
-              1.250+ avaliações 5★ no Google.
+              1.500+ avaliações 5★ no Google.
               <br />
               <span className="text-cream/60">Esses são alguns deles.</span>
             </h2>
@@ -112,7 +112,7 @@ export function Testimonials() {
             href={perfilGoogle}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Nota 5,0 de 5. Mais de 1.250 avaliações reais no Google. Abrir no Google Maps"
+            aria-label="Nota 5,0 de 5. Mais de 1.500 avaliações reais no Google. Abrir no Google Maps"
             className="flex items-center gap-5 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-[1.375rem] transition-colors hover:border-[#fbbc04]/35 hover:bg-white/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950 lg:col-span-5"
           >
             <div className="font-display text-[3.25rem] font-bold leading-none tracking-[-0.03em] text-cream tabular-nums">
@@ -120,7 +120,7 @@ export function Testimonials() {
             </div>
             <div className="min-w-0 flex-1">
               <Estrelas n={5} className="h-[22px] w-[22px]" />
-              <div className="mt-1.5 text-balance text-sm text-cream/70">Mais de 1.250 avaliações reais no Google</div>
+              <div className="mt-1.5 text-balance text-sm text-cream/70">Mais de 1.500 avaliações reais no Google</div>
             </div>
             <GoogleG className="h-7 w-7 shrink-0 self-start" />
           </a>
